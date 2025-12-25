@@ -1,8 +1,25 @@
-export default function Slide2() {
+import type { Locale } from "@/lib/i18n"
+
+const copy: Record<Locale, { title: string; mainLines: [string, string]; supporting: string }> = {
+  ja: {
+    title: "定義 ー 「人とAIのあいだをつなぐ仕組み」",
+    mainLines: ["AIが賢くなるほど、", "人とAIの意図はすれ違う。"],
+    supporting: "mymemは、人間の創造を再び中心に取り戻すための仕組み。",
+  },
+  en: {
+    title: "Definition — Connecting Humans and AI",
+    mainLines: ["As AI becomes smarter,", "the intentions of humans and AI drift further apart."],
+    supporting: "mymem is a system designed to bring human creativity back to the center.",
+  },
+}
+
+export default function Slide2({ locale }: { locale: Locale }) {
+  const text = copy[locale]
+
   return (
     <div className="h-full w-full flex flex-col p-16">
       {/* Section title */}
-      <h2 className="text-3xl font-light text-gray-800 mb-16">定義 ー 「人とAIのあいだをつなぐ仕組み」</h2>
+      <h2 className="text-3xl font-light text-gray-800 mb-16">{text.title}</h2>
 
       {/* Main content: two columns */}
       <div className="flex-1 flex items-center gap-16">
@@ -10,13 +27,13 @@ export default function Slide2() {
         <div className="flex-1 flex flex-col justify-center">
           {/* Main message */}
           <p className="text-5xl font-bold text-[#2A6DF5] mb-8 leading-relaxed text-balance">
-            AIが賢くなるほど、
+            {text.mainLines[0]}
             <br />
-            人とAIの意図はすれ違う。
+            {text.mainLines[1]}
           </p>
 
           {/* Supporting text */}
-          <p className="text-xl text-gray-600 leading-relaxed">mymemは、人間の創造を再び中心に取り戻すための仕組み。</p>
+          <p className="text-xl text-gray-600 leading-relaxed">{text.supporting}</p>
         </div>
 
         {/* Right column: Illustration in beige box */}

@@ -17,8 +17,11 @@ import Slide76 from "@/components/slides/slide-7-6"
 import Slide8 from "@/components/slides/slide-8"
 import Slide81 from "@/components/slides/slide-8-1"
 import Slide82 from "@/components/slides/slide-8-2"
+import { defaultLocale, getBrowserLocale, type Locale } from "@/lib/i18n"
 
-const slides = [
+type SlideComponent = (props: { locale: Locale }) => JSX.Element
+
+const slides: SlideComponent[] = [
   Slide1,
   Slide2,
   Slide3,
@@ -37,6 +40,7 @@ const slides = [
 
 export default function PresentationPage() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [locale, setLocale] = useState<Locale>(defaultLocale)
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -51,6 +55,12 @@ export default function PresentationPage() {
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [currentSlide])
 
+  useEffect(() => {
+    const detected = getBrowserLocale()
+    setLocale(detected)
+    document.documentElement.lang = detected
+  }, [])
+
   const nextSlide = () => {
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1)
@@ -63,63 +73,53 @@ export default function PresentationPage() {
     }
   }
 
-  const handleDownloadPDF = () => {
-    window.print()
-  }
-
   const CurrentSlideComponent = slides[currentSlide]
 
-  return (
-    <div className="relative h-screen w-screen overflow-hidden bg-white">
-      <div className="print-all-slides">
-        {slides.map((SlideComponent, index) => (
-          <div key={index} className="print-slide-page">
-            <SlideComponent />
-          </div>
-        ))}
-      </div>
+  const renderSlideChrome = (index: number, isPrint: boolean) => {
+    const isFirst = index === 0
+    const isLast = index === slides.length - 1
 
-      <div className="screen-view">
-        <CurrentSlideComponent />
-
+    return (
+      <>
         <div className="absolute top-8 right-8 flex items-center gap-3 z-10">
           <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ccvnlogo-wRNUvgED6QaFtUAfFxavMcSKztXtKQ.png"
+            src="/images/ccvn-logo.png"
             alt="Creative Crew Inc."
             className="h-10 w-10"
           />
           <Button
             variant="ghost"
             size="icon"
-            onClick={handleDownloadPDF}
+            onClick={isPrint ? undefined : () => window.print()}
+            disabled={isPrint}
             className="rounded-full hover:bg-gray-100"
-            aria-label="PDFをダウンロード"
+            aria-label={locale === "en" ? "Download PDF" : "PDFをダウンロード"}
           >
             <Download className="h-5 w-5 text-gray-600" />
           </Button>
         </div>
 
-        {/* Navigation Controls */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4">
           <Button
             variant="outline"
             size="icon"
-            onClick={prevSlide}
-            disabled={currentSlide === 0}
+            onClick={isPrint ? undefined : prevSlide}
+            disabled={isPrint || isFirst}
             className="rounded-full bg-transparent"
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
 
           <div className="flex gap-2">
-            {slides.map((_, index) => (
+            {slides.map((_, dotIndex) => (
               <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
+                key={dotIndex}
+                onClick={isPrint ? undefined : () => setCurrentSlide(dotIndex)}
+                disabled={isPrint}
                 className={`h-2 rounded-full transition-all ${
-                  index === currentSlide ? "w-8 bg-[#2A6DF5]" : "w-2 bg-gray-300 hover:bg-gray-400"
+                  dotIndex === index ? "w-8 bg-[#2A6DF5]" : "w-2 bg-gray-300 hover:bg-gray-400"
                 }`}
-                aria-label={`スライド ${index + 1} へ移動`}
+                aria-label={locale === "en" ? `Go to slide ${dotIndex + 1}` : `スライド ${dotIndex + 1} へ移動`}
               />
             ))}
           </div>
@@ -127,23 +127,64 @@ export default function PresentationPage() {
           <Button
             variant="outline"
             size="icon"
-            onClick={nextSlide}
-            disabled={currentSlide === slides.length - 1}
+            onClick={isPrint ? undefined : nextSlide}
+            disabled={isPrint || isLast}
             className="rounded-full bg-transparent"
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
 
-        {/* Slide Counter */}
         <div className="absolute bottom-8 right-8 text-sm text-gray-400">
-          {currentSlide + 1} / {slides.length}
+          {index + 1} / {slides.length}
         </div>
 
         <div className="absolute bottom-8 left-8 text-xs text-gray-400">© Creative Crew Inc. All rights reserved.</div>
 
+        <div className="print-hide absolute bottom-20 left-8 max-w-md text-xs text-gray-500">
+          {locale === "en" ? (
+            <>
+              PDF export
+              <br />
+              Use your browser print dialog and select “Save as PDF”.
+            </>
+          ) : (
+            <>
+              PDF出力について
+              <br />
+              この資料は、ブラウザの印刷機能を使ってPDFとして保存できます。
+              <br />
+              印刷ダイアログで「PDFに保存」を選択してください。
+            </>
+          )}
+        </div>
+      </>
+    )
+  }
+
+  return (
+    <div className="presentation-root relative h-screen w-screen overflow-hidden bg-white">
+      <div className="print-only print-root">
+        {slides.map((SlideComponent, index) => (
+          <div key={index} className="print-slide">
+            <div className="print-slide-frame relative h-full w-full overflow-hidden bg-white">
+              <SlideComponent locale={locale} />
+              {renderSlideChrome(index, true)}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="screen-only">
+        <CurrentSlideComponent locale={locale} />
+        {renderSlideChrome(currentSlide, false)}
+
         {/* Keyboard Navigation */}
-        <div className="sr-only">キーボードの左右矢印キーでスライドを移動できます</div>
+        <div className="sr-only">
+          {locale === "en"
+            ? "Use the left and right arrow keys to navigate slides."
+            : "キーボードの左右矢印キーでスライドを移動できます"}
+        </div>
       </div>
     </div>
   )

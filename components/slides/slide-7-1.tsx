@@ -1,4 +1,51 @@
-export default function Slide71() {
+import type { Locale } from "@/lib/i18n"
+
+const copy: Record<
+  Locale,
+  {
+    title: string
+    titleSuffix: string
+    main: string
+    supporting: string
+    labels: { individual: string; aiTwin: string; others: string }
+    footer: string
+    closing: [string, string]
+  }
+> = {
+  ja: {
+    title: "共有性",
+    titleSuffix: "（Shareability）",
+    main: "自分の考え方や視点を、他者が再利用できる時代へ。",
+    supporting: "mymemは、思考の手順をつなぐ \"Skill Network\" を構築します。",
+    labels: {
+      individual: "個人",
+      aiTwin: "分身AI",
+      others: "他者",
+    },
+    footer: "Skill Network / Cognitive Sharing Layer",
+    closing: ["一人の思考は、次の創造の起点になり得る。", "人と人がつながり、創造の循環が生まれていく。"],
+  },
+  en: {
+    title: "Shareability",
+    titleSuffix: "",
+    main: "An era where your way of thinking and perspective can be reused by others.",
+    supporting: "mymem builds a \"Skill Network\" that connects thinking workflows.",
+    labels: {
+      individual: "Individual",
+      aiTwin: "AI Twin",
+      others: "Others",
+    },
+    footer: "Skill Network / Cognitive Sharing Layer",
+    closing: [
+      "One person's thinking can become the starting point for another's creation.",
+      "When people connect, creativity begins to circulate.",
+    ],
+  },
+}
+
+export default function Slide71({ locale }: { locale: Locale }) {
+  const text = copy[locale]
+
   return (
     <div className="relative h-full w-full bg-white p-16 overflow-hidden">
       {/* Background network lines */}
@@ -17,7 +64,8 @@ export default function Slide71() {
       {/* Section title */}
       <div className="mb-16">
         <h2 className="text-3xl font-light text-gray-800">
-          共有性<span className="text-gray-500 text-xl ml-2">（Shareability）</span>
+          {text.title}
+          {text.titleSuffix ? <span className="text-gray-500 text-xl ml-2">{text.titleSuffix}</span> : null}
         </h2>
       </div>
 
@@ -26,10 +74,10 @@ export default function Slide71() {
         {/* Main copy */}
         <div className="text-center space-y-4">
           <h3 className="text-4xl font-bold text-[#2A6DF5] leading-relaxed">
-            自分の考え方や視点を、他者が再利用できる時代へ。
+            {text.main}
           </h3>
           <p className="text-xl text-gray-700 leading-relaxed">
-            mymemは、思考の手順をつなぐ "Skill Network" を構築します。
+            {text.supporting}
           </p>
         </div>
 
@@ -38,7 +86,7 @@ export default function Slide71() {
           {/* Individual */}
           <div className="flex flex-col items-center gap-3">
             <div className="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-4xl">🧍</div>
-            <span className="text-sm text-gray-600 font-medium">個人</span>
+            <span className="text-sm text-gray-600 font-medium">{text.labels.individual}</span>
           </div>
 
           {/* Arrow */}
@@ -56,7 +104,7 @@ export default function Slide71() {
           {/* AI Clone */}
           <div className="flex flex-col items-center gap-3">
             <div className="w-20 h-20 rounded-full bg-blue-200 flex items-center justify-center text-4xl">🤖</div>
-            <span className="text-sm text-gray-600 font-medium">分身AI</span>
+            <span className="text-sm text-gray-600 font-medium">{text.labels.aiTwin}</span>
           </div>
 
           {/* Arrow */}
@@ -92,17 +140,17 @@ export default function Slide71() {
           {/* Others */}
           <div className="flex flex-col items-center gap-3">
             <div className="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-4xl">👥</div>
-            <span className="text-sm text-gray-600 font-medium">他者</span>
+            <span className="text-sm text-gray-600 font-medium">{text.labels.others}</span>
           </div>
         </div>
 
         {/* English label */}
-        <p className="text-sm text-gray-500 italic">Skill Network / Cognitive Sharing Layer</p>
+        <p className="text-sm text-gray-500 italic">{text.footer}</p>
 
         {/* Bottom catchphrases */}
         <div className="text-center space-y-2 mt-8">
-          <p className="text-lg text-gray-700 font-medium">一人の思考は、次の創造の起点になり得る。</p>
-          <p className="text-lg text-gray-700 font-medium">人と人がつながり、創造の循環が生まれていく。</p>
+          <p className="text-lg text-gray-700 font-medium">{text.closing[0]}</p>
+          <p className="text-lg text-gray-700 font-medium">{text.closing[1]}</p>
         </div>
       </div>
     </div>

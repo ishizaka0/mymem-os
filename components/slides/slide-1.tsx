@@ -1,6 +1,22 @@
 import Image from "next/image"
+import type { Locale } from "@/lib/i18n"
 
-export default function Slide1() {
+const copy: Record<Locale, { title: string; subtitle: string; product: string }> = {
+  ja: {
+    title: "思考の手順を、すべての人に。",
+    subtitle: "私たちが作っているもの",
+    product: "mymem",
+  },
+  en: {
+    title: "Making Thinking Workflows Accessible to Everyone",
+    subtitle: "What we are building",
+    product: "mymem",
+  },
+}
+
+export default function Slide1({ locale }: { locale: Locale }) {
+  const text = copy[locale]
+
   return (
     <div className="h-full w-full flex flex-col items-center justify-center p-16 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
@@ -74,9 +90,9 @@ export default function Slide1() {
       </div>
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-4xl gap-8 mt-64">
-        <h1 className="text-6xl font-bold text-[#2A6DF5] leading-tight">思考の手順を、すべての人に。</h1>
-        <p className="text-xl text-gray-600">私たちが作っているもの</p>
-        <p className="text-3xl font-semibold text-gray-700">mymem OS</p>
+        <h1 className="text-6xl font-bold text-[#2A6DF5] leading-tight">{text.title}</h1>
+        <p className="text-xl text-gray-600">{text.subtitle}</p>
+        <p className="text-3xl font-semibold text-gray-700">{text.product}</p>
 
         <div className="flex items-center justify-center gap-8 mt-4">
           <Image

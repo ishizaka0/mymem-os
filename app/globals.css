@@ -124,26 +124,15 @@
   }
 }
 
-/* Improved print styles to ensure all slides are included in PDF */
-@media screen {
-  /* Hide all slides container on screen */
-  .print-all-slides {
-    position: absolute;
-    left: -9999px;
-    top: -9999px;
-    visibility: hidden;
-  }
-
-  /* Show main view on screen */
-  .screen-view {
-    display: block;
-  }
-}
-
 @media print {
-  /* Set page size to 16:9 ratio (297mm x 167mm landscape) */
+  :root {
+    --print-slide-scale: 1;
+    --print-slide-offset-x: 0mm;
+  }
+
+  /* Set page size to A3 landscape */
   @page {
-    size: 297mm 167mm;
+    size: 420mm 297mm;
     margin: 0;
   }
 
@@ -160,16 +149,25 @@
     padding: 0 !important;
     width: 100% !important;
     height: 100% !important;
+    overflow: visible !important;
   }
 
-  /* Hide the screen view during print */
-  .screen-view {
+  .presentation-root {
+    height: auto !important;
+    width: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Show print DOM and hide screen UI */
+  .screen-only {
     display: none !important;
-    visibility: hidden !important;
   }
 
-  /* Show and properly format the print container */
-  .print-all-slides {
+  .print-only {
+    display: block !important;
+  }
+
+  .print-root {
     position: static !important;
     left: auto !important;
     top: auto !important;
@@ -179,11 +177,15 @@
     height: auto !important;
   }
 
-  /* Each slide takes exactly one page with 16:9 ratio */
-  .print-slide-page {
-    width: 297mm !important;
-    height: 167mm !important;
-    min-height: 167mm !important;
+  .print-hide {
+    display: none !important;
+  }
+
+  /* Each slide takes exactly one page in A3 landscape */
+  .print-slide {
+    width: 420mm !important;
+    height: 297mm !important;
+    min-height: 297mm !important;
     page-break-after: always !important;
     page-break-inside: avoid !important;
     break-after: page !important;
@@ -195,22 +197,36 @@
   }
 
   /* Ensure slide content fills the page properly */
-  .print-slide-page > div {
+  .print-slide > div {
     width: 100% !important;
     height: 100% !important;
     display: flex !important;
   }
 
+  .print-slide-frame {
+    width: calc(100% / var(--print-slide-scale)) !important;
+    height: calc(100% / var(--print-slide-scale)) !important;
+    transform: translateX(var(--print-slide-offset-x)) scale(var(--print-slide-scale));
+    transform-origin: top left;
+  }
+
+  .print-slide .h-screen {
+    height: 100% !important;
+  }
+
+  .print-slide .w-screen {
+    width: 100% !important;
+  }
+
   /* Don't add page break after the last slide */
-  .print-slide-page:last-child {
+  .print-slide:last-child {
     page-break-after: auto !important;
     break-after: auto !important;
   }
 }
 
-/* Hide print container on screen */
 @media screen {
-  .print-container.hidden {
-    display: none !important;
+  .print-only {
+    display: none;
   }
 }

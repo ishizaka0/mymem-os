@@ -1,8 +1,25 @@
-export default function Slide3() {
+import type { Locale } from "@/lib/i18n"
+
+const copy: Record<Locale, { title: string; mainLines: [string, string]; supporting: string }> = {
+  ja: {
+    title: "問題（Problem）",
+    mainLines: ["暗黙知は、", "個人の経験と判断に閉じている。"],
+    supporting: "属人化された知識は、共有されず、再現されない。",
+  },
+  en: {
+    title: "Problem",
+    mainLines: ["Tacit knowledge is locked inside", "individual experience and judgment."],
+    supporting: "Personalized knowledge is rarely shared—and almost never reproducible.",
+  },
+}
+
+export default function Slide3({ locale }: { locale: Locale }) {
+  const text = copy[locale]
+
   return (
     <div className="h-full w-full flex flex-col p-16">
       {/* Section title at top left */}
-      <h2 className="text-3xl font-light text-gray-800 mb-16">問題（Problem）</h2>
+      <h2 className="text-3xl font-light text-gray-800 mb-16">{text.title}</h2>
 
       {/* Main content: two columns */}
       <div className="flex-1 flex items-center gap-16">
@@ -10,13 +27,13 @@ export default function Slide3() {
         <div className="flex-1 flex flex-col justify-center">
           {/* Main message */}
           <p className="text-5xl font-bold text-[#2A6DF5] mb-8 leading-relaxed text-balance">
-            暗黙知は、
+            {text.mainLines[0]}
             <br />
-            個人の経験と判断に閉じている。
+            {text.mainLines[1]}
           </p>
 
           {/* Supporting text */}
-          <p className="text-xl text-gray-600 leading-relaxed">属人化された知識は、共有されず、再現されない。</p>
+          <p className="text-xl text-gray-600 leading-relaxed">{text.supporting}</p>
         </div>
 
         {/* Right column: Illustration in beige box */}

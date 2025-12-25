@@ -1,25 +1,49 @@
-export default function Slide75() {
+import type { Locale } from "@/lib/i18n"
+
+const copy: Record<
+  Locale,
+  { title: string; mainLines: [string, string]; supporting: string; tagline: string; layer: string }
+> = {
+  ja: {
+    title: "価値・市場（Value / Market）",
+    mainLines: ["AIモデルの競争ではなく、「思考の運用レイヤー」を拓く。", "開発・教育・ナレッジの広大な創造領域へ。"],
+    supporting: "mymem は、AIの進化が加速するほど需要が高まり、持続可能な市場優位性を確立します。",
+    tagline: "モデルは変わる。思考の運用は残る。",
+    layer: "思考運用レイヤー",
+  },
+  en: {
+    title: "Value / Market",
+    mainLines: ["Not competing in AI models—but opening the thinking operation layer.", "A vast creative domain across development, education, and knowledge work."],
+    supporting: "As AI accelerates, the value of mymem only grows.",
+    tagline: "Models change. How we operate thinking remains.",
+    layer: "Thinking Operation Layer",
+  },
+}
+
+export default function Slide75({ locale }: { locale: Locale }) {
+  const text = copy[locale]
+
   return (
     <div className="h-full w-full flex flex-col p-16">
       {/* Section title */}
-      <h2 className="text-3xl font-light text-gray-800 mb-12">価値・市場（Value / Market）</h2>
+      <h2 className="text-3xl font-light text-gray-800 mb-12">{text.title}</h2>
 
       {/* Main content area */}
       <div className="flex-1 flex flex-col items-center justify-center gap-2 mt-8">
         <p className="text-3xl font-bold text-[#2A6DF5] text-center max-w-5xl leading-relaxed">
-          AIモデルの競争ではなく、「思考の運用レイヤー」を拓く。
+          {text.mainLines[0]}
         </p>
 
         <p className="text-3xl font-bold text-[#2A6DF5] text-center max-w-5xl leading-relaxed">
-          開発・教育・ナレッジの広大な創造領域へ。
+          {text.mainLines[1]}
         </p>
 
         <p className="text-xl text-gray-700 text-center max-w-4xl leading-relaxed mt-4">
-          mymem は、AIの進化が加速するほど需要が高まり、持続可能な市場優位性を確立します。
+          {text.supporting}
         </p>
 
         <p className="text-2xl font-light text-gray-600 text-center max-w-4xl leading-relaxed mt-12 mb-2 italic">
-          モデルは変わる。思考の運用は残る。
+          {text.tagline}
         </p>
 
         <div className="w-full max-w-4xl">
@@ -44,11 +68,13 @@ export default function Slide75() {
               fill="white"
             />
             <text x="400" y="110" fontSize="20" fontWeight="600" fill="#2A6DF5" textAnchor="middle">
-              思考運用レイヤー
+              {text.layer}
             </text>
-            <text x="400" y="135" fontSize="16" fontWeight="400" fill="#6B7280" textAnchor="middle">
-              (Thinking Operation Layer)
-            </text>
+            {locale === "en" ? null : (
+              <text x="400" y="135" fontSize="16" fontWeight="400" fill="#6B7280" textAnchor="middle">
+                (Thinking Operation Layer)
+              </text>
+            )}
 
             {/* Freehand arrows showing separation/distinction */}
             <path

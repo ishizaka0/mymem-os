@@ -1,8 +1,25 @@
-export default function Slide5() {
+import type { Locale } from "@/lib/i18n"
+
+const copy: Record<Locale, { title: string; main: string; supporting: string }> = {
+  ja: {
+    title: "解決（Solution）",
+    main: "mymem は、思考の手順を開放する仕組み。",
+    supporting: "AIとの対話を通じて、より深く考えられる道具となる。",
+  },
+  en: {
+    title: "Solution",
+    main: "mymem is a system that opens up thinking workflows.",
+    supporting: "Through dialogue with AI, it becomes a tool that helps people think more deeply.",
+  },
+}
+
+export default function Slide5({ locale }: { locale: Locale }) {
+  const text = copy[locale]
+
   return (
     <div className="h-full w-full flex flex-col p-16 pb-24">
       <div className="mb-12">
-        <h2 className="text-3xl font-light text-gray-800">解決（Solution）</h2>
+        <h2 className="text-3xl font-light text-gray-800">{text.title}</h2>
       </div>
 
       <div className="flex items-center justify-center gap-6 max-w-7xl w-full mx-auto flex-1">
@@ -23,8 +40,14 @@ export default function Slide5() {
 
       {/* Text content at bottom */}
       <div className="text-center space-y-3 mt-8">
-        <p className="text-5xl font-bold text-[#2A6DF5] whitespace-nowrap">mymem は、思考の手順を開放する仕組み。</p>
-        <p className="text-xl text-gray-800 leading-relaxed">AIとの対話を通じて、より深く考えられる道具となる。</p>
+        <p
+          className={`text-5xl font-bold text-[#2A6DF5] ${
+            locale === "en" ? "text-balance" : "whitespace-nowrap"
+          }`}
+        >
+          {text.main}
+        </p>
+        <p className="text-xl text-gray-800 leading-relaxed">{text.supporting}</p>
       </div>
     </div>
   )

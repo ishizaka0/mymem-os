@@ -1,7 +1,24 @@
-export default function Slide6() {
+import type { Locale } from "@/lib/i18n"
+
+const copy: Record<Locale, { title: string; main: string; supporting: string }> = {
+  ja: {
+    title: "再現性（Reproducibility）",
+    main: "個やAIの知識を手順に変え、手順を集合の知へと変える。",
+    supporting: "それが「再現知」のはじまり。",
+  },
+  en: {
+    title: "Reproducibility",
+    main: "Transform individual and AI knowledge into workflows—and workflows into collective intelligence.",
+    supporting: "This is the beginning of reproducible knowledge.",
+  },
+}
+
+export default function Slide6({ locale }: { locale: Locale }) {
+  const text = copy[locale]
+
   return (
     <div className="h-full w-full flex flex-col p-16">
-      <h2 className="text-3xl font-light text-gray-800 mb-8">再現性（Reproducibility）</h2>
+      <h2 className="text-3xl font-light text-gray-800 mb-8">{text.title}</h2>
 
       <div className="flex-1 flex flex-col items-center justify-center">
         {/* Illustration: Small dots connecting into a large network */}
@@ -71,11 +88,11 @@ export default function Slide6() {
 
         {/* Main message */}
         <p className="text-4xl font-bold text-[#2A6DF5] mb-6 text-center max-w-4xl leading-relaxed text-balance">
-          個やAIの知識を手順に変え、手順を集合の知へと変える。
+          {text.main}
         </p>
 
         {/* Supporting text */}
-        <p className="text-xl text-gray-600 text-center max-w-3xl leading-relaxed">それが「再現知」のはじまり。</p>
+        <p className="text-xl text-gray-600 text-center max-w-3xl leading-relaxed">{text.supporting}</p>
       </div>
     </div>
   )

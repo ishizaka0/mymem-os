@@ -1,8 +1,25 @@
-export default function Slide4() {
+import type { Locale } from "@/lib/i18n"
+
+const copy: Record<Locale, { title: string; main: string; supporting: string }> = {
+  ja: {
+    title: "洞察（Insight）",
+    main: "最も大切なのは知能ではなく、思考の構造と手順。",
+    supporting: "「モノの見方」を増やす視点づくり",
+  },
+  en: {
+    title: "Insight",
+    main: "What matters most is not intelligence, but the structure and sequence of thinking.",
+    supporting: "Expanding perspectives on how we see and approach problems.",
+  },
+}
+
+export default function Slide4({ locale }: { locale: Locale }) {
+  const text = copy[locale]
+
   return (
     <div className="h-full w-full flex flex-col p-16 pb-32">
       <div className="mb-8">
-        <h2 className="text-3xl font-light text-gray-800">洞察（Insight）</h2>
+        <h2 className="text-3xl font-light text-gray-800">{text.title}</h2>
       </div>
 
       <div className="flex flex-col items-center justify-center gap-8 max-w-5xl w-full mx-auto mt-6">
@@ -39,10 +56,14 @@ export default function Slide4() {
         </div>
 
         <div className="text-center space-y-4">
-          <p className="text-5xl font-bold text-[#2A6DF5] whitespace-nowrap">
-            最も大切なのは知能ではなく、思考の構造と手順。
+          <p
+            className={`text-5xl font-bold text-[#2A6DF5] ${
+              locale === "en" ? "text-balance" : "whitespace-nowrap"
+            }`}
+          >
+            {text.main}
           </p>
-          <p className="text-xl text-gray-800 leading-relaxed">「モノの見方」を増やす視点づくり</p>
+          <p className="text-xl text-gray-800 leading-relaxed">{text.supporting}</p>
         </div>
       </div>
     </div>

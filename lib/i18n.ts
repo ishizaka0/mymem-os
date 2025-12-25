@@ -7,5 +7,5 @@ export const getBrowserLocale = (): Locale => {
     return defaultLocale
   }
 
-  return navigator.language.toLowerCase().startsWith("en") ? "en" : "ja"
+  return navigator.language.toLowerCase().startsWith("ja") ? "ja" : "en"
 }

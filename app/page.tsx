@@ -17,7 +17,7 @@ import Slide76 from "@/components/slides/slide-7-6"
 import Slide8 from "@/components/slides/slide-8"
 import Slide81 from "@/components/slides/slide-8-1"
 import Slide82 from "@/components/slides/slide-8-2"
-import { defaultLocale, getBrowserLocale, type Locale } from "@/lib/i18n"
+import { defaultLocale, getPresentationLocale, type Locale } from "@/lib/i18n"
 import { PRESENTATION_VERSION } from "@/lib/presentation-version"
 
 type SlideComponent = (props: { locale: Locale }) => JSX.Element
@@ -57,7 +57,7 @@ export default function PresentationPage() {
   }, [currentSlide])
 
   useEffect(() => {
-    const detected = getBrowserLocale()
+    const detected = getPresentationLocale(window.location.search)
     setLocale(detected)
     document.documentElement.lang = detected
   }, [])

@@ -6,6 +6,7 @@ const copy: Record<
     title: string
     tagline: string
     subheading: string
+    distributionNote: string
     cards: Array<{ name: string; layer: string; description: string; audience: string }>
     phases: Array<{ title: string; name: string; details: [string, string]; status: string }>
   }
@@ -14,6 +15,7 @@ const copy: Record<
     title: "製品ラインナップ（Product Lineup）",
     tagline: "思想を、かたちに。",
     subheading: "mymem を構成する4つのプロダクトと、その進化。",
+    distributionNote: "招待制コードにてポータルで配布",
     cards: [
       {
         name: "mymem Lite",
@@ -22,13 +24,13 @@ const copy: Record<
         audience: "想定: 一般利用者",
       },
       {
-        name: "mymem Pro",
+        name: "mymem Pro\nmymem Developer",
         layer: "開発・統合層",
         description: "AIとの記憶を個人の主権とする（Pro）",
         audience: "想定: 開発者・一般利用者",
       },
       {
-        name: "mymem Enterprise",
+        name: "mymem Teams",
         layer: "企業統合層",
         description: "大規模組織向けの知識統合・協働基盤",
         audience: "想定: エンタープライズ",
@@ -49,15 +51,15 @@ const copy: Record<
       },
       {
         title: "Phase 2",
-        name: "mymem Pro",
+        name: "mymem Pro\nmymem Developer",
         details: ["AI・人間・ツールを繋ぐワークフローAI基盤とクラウド統合", "自動学習・自己拡張"],
-        status: "2026年4月リリース予定",
+        status: "2026年10月Beta版リリース済",
       },
       {
         title: "Phase 3",
-        name: "mymem Enterprise",
+        name: "mymem Teams",
         details: ["組織知の統合と協働基盤", "大規模チーム連携"],
-        status: "計画中（2026）",
+        status: "2026年12月Beta版リリース予定",
       },
       {
         title: "Phase 4",
@@ -71,6 +73,7 @@ const copy: Record<
     title: "Product Lineup",
     tagline: "Turning philosophy into form.",
     subheading: "The four products that make up mymem—and their evolution.",
+    distributionNote: "Available on the portal with an invitation code.",
     cards: [
       {
         name: "mymem Lite",
@@ -79,13 +82,13 @@ const copy: Record<
         audience: "Target: general users",
       },
       {
-        name: "mymem Pro",
+        name: "mymem Pro\nmymem Developer",
         layer: "Development & integration layer",
         description: "Personal sovereignty over memory with AI (Pro).",
         audience: "Target: developers and general users",
       },
       {
-        name: "mymem Enterprise",
+        name: "mymem Teams",
         layer: "Enterprise integration layer",
         description: "Knowledge integration and collaboration platform for large organizations.",
         audience: "Target: enterprise",
@@ -106,15 +109,15 @@ const copy: Record<
       },
       {
         title: "Phase 2",
-        name: "mymem Pro",
+        name: "mymem Pro\nmymem Developer",
         details: ["Workflow AI foundation connecting AI, humans, and tools, with cloud integration", "Autonomous learning and self-expansion"],
-        status: "Planned release: April 2026",
+        status: "Beta released: October 2026",
       },
       {
         title: "Phase 3",
-        name: "mymem Enterprise",
+        name: "mymem Teams",
         details: ["Organizational knowledge integration and collaboration platform", "Large-team collaboration"],
-        status: "Planned (2026)",
+        status: "Beta planned: December 2026",
       },
       {
         title: "Phase 4",
@@ -132,7 +135,7 @@ export default function Slide76({ locale }: { locale: Locale }) {
   return (
     <div className="h-screen w-screen flex flex-col p-16 bg-white">
       {/* Section Title */}
-      <h2 className="text-3xl font-light text-gray-800 mb-12">{text.title}</h2>
+      <h2 className="text-3xl font-light text-gray-800 mb-8">{text.title}</h2>
 
       {/* Main Title */}
       <div className="mb-8 text-center">
@@ -141,8 +144,8 @@ export default function Slide76({ locale }: { locale: Locale }) {
       </div>
 
       {/* Four-layer Structure */}
-      <div className="flex items-center justify-center gap-4 mb-16">
-        <div className="flex-1 bg-blue-50 border-2 border-blue-200 rounded-2xl p-5">
+      <div className="flex items-center justify-center gap-4 mb-8">
+        <div className="flex-1 self-stretch bg-blue-50 border-2 border-blue-200 rounded-2xl p-5">
           <h3 className="text-xl font-semibold text-[#2A6DF5] mb-2">{text.cards[0].name}</h3>
           <p className="text-sm text-gray-700 mb-2">{text.cards[0].layer}</p>
           <p className="text-xs text-gray-600 leading-relaxed">{text.cards[0].description}</p>
@@ -163,8 +166,8 @@ export default function Slide76({ locale }: { locale: Locale }) {
           </svg>
         </div>
 
-        <div className="flex-1 bg-blue-50 border-2 border-blue-200 rounded-2xl p-5">
-          <h3 className="text-xl font-semibold text-[#2A6DF5] mb-2">{text.cards[1].name}</h3>
+        <div className="flex-1 self-stretch bg-blue-50 border-2 border-blue-200 rounded-2xl p-5">
+          <h3 className="whitespace-pre-line text-xl font-semibold text-[#2A6DF5] mb-2">{text.cards[1].name}</h3>
           <p className="text-sm text-gray-700 mb-2">{text.cards[1].layer}</p>
           <p className="text-xs text-gray-600 leading-relaxed">{text.cards[1].description}</p>
           <p className="text-xs text-gray-500 mt-2">{text.cards[1].audience}</p>
@@ -184,8 +187,8 @@ export default function Slide76({ locale }: { locale: Locale }) {
           </svg>
         </div>
 
-        {/* Layer 3: mymem Enterprise */}
-        <div className="flex-1 bg-blue-50 border-2 border-blue-200 rounded-2xl p-5">
+        {/* Layer 3: mymem Teams */}
+        <div className="flex-1 self-stretch bg-blue-50 border-2 border-blue-200 rounded-2xl p-5">
           <h3 className="text-xl font-semibold text-[#2A6DF5] mb-2">{text.cards[2].name}</h3>
           <p className="text-sm text-gray-700 mb-2">{text.cards[2].layer}</p>
           <p className="text-xs text-gray-600 leading-relaxed">{text.cards[2].description}</p>
@@ -207,7 +210,7 @@ export default function Slide76({ locale }: { locale: Locale }) {
         </div>
 
         {/* Layer 4: mymem OS */}
-        <div className="flex-1 bg-blue-50 border-2 border-blue-200 rounded-2xl p-5">
+        <div className="flex-1 self-stretch bg-blue-50 border-2 border-blue-200 rounded-2xl p-5">
           <h3 className="text-xl font-semibold text-[#2A6DF5] mb-2">{text.cards[3].name}</h3>
           <p className="text-sm text-gray-700 mb-2">{text.cards[3].layer}</p>
           <p className="text-xs text-gray-600 leading-relaxed">{text.cards[3].description}</p>
@@ -216,7 +219,7 @@ export default function Slide76({ locale }: { locale: Locale }) {
       </div>
 
       {/* Timeline: Phase 1-4 */}
-      <div className="flex items-start justify-center gap-6 mb-8">
+      <div className="flex items-start justify-center gap-6">
         {/* Phase 1 */}
         <div className="flex-1 text-center">
           <div className="inline-block bg-green-100 text-green-700 px-4 py-1 rounded-full text-sm font-medium mb-3">
@@ -249,13 +252,22 @@ export default function Slide76({ locale }: { locale: Locale }) {
           <div className="inline-block bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-sm font-medium mb-3">
             {text.phases[1].title}
           </div>
-          <h4 className="text-lg font-semibold text-gray-800 mb-2">{text.phases[1].name}</h4>
+          <h4 className="whitespace-pre-line text-lg font-semibold text-gray-800 mb-2">{text.phases[1].name}</h4>
           <p className="text-xs text-gray-600 leading-relaxed mb-2">
             {text.phases[1].details[0]}
             <br />
             {text.phases[1].details[1]}
           </p>
           <p className="text-xs font-medium text-blue-600">{text.phases[1].status}</p>
+          <p className="text-xs text-gray-500 leading-relaxed mt-1">{text.distributionNote}</p>
+          <a
+            href="https://portal.mymem.net"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block text-xs text-blue-600 underline underline-offset-2 mt-1"
+          >
+            https://portal.mymem.net
+          </a>
         </div>
 
         {/* Arrow */}

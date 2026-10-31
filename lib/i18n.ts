@@ -9,3 +9,12 @@ export const getBrowserLocale = (): Locale => {
 
   return navigator.language.toLowerCase().startsWith("ja") ? "ja" : "en"
 }
+
+export const getPresentationLocale = (search: string): Locale => {
+  const requestedLocale = new URLSearchParams(search).get("lang")
+  if (requestedLocale === "ja" || requestedLocale === "en") {
+    return requestedLocale
+  }
+
+  return getBrowserLocale()
+}

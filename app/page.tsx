@@ -18,6 +18,7 @@ import Slide8 from "@/components/slides/slide-8"
 import Slide81 from "@/components/slides/slide-8-1"
 import Slide82 from "@/components/slides/slide-8-2"
 import { defaultLocale, getBrowserLocale, type Locale } from "@/lib/i18n"
+import { PRESENTATION_VERSION } from "@/lib/presentation-version"
 
 type SlideComponent = (props: { locale: Locale }) => JSX.Element
 
@@ -81,7 +82,7 @@ export default function PresentationPage() {
 
     return (
       <>
-        <div className="absolute top-8 right-8 flex items-center gap-3 z-10">
+        <div className="absolute top-8 right-8 grid grid-cols-2 items-center justify-items-center gap-x-3 gap-y-1 z-10">
           <img
             src="/images/ccvn-logo.png"
             alt="Creative Crew Inc."
@@ -97,6 +98,11 @@ export default function PresentationPage() {
           >
             <Download className="h-5 w-5 text-gray-600" />
           </Button>
+          {isFirst && (
+            <p className="col-start-2 whitespace-nowrap text-xs leading-none text-gray-400 tabular-nums">
+              v{PRESENTATION_VERSION}
+            </p>
+          )}
         </div>
 
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4">
@@ -141,23 +147,25 @@ export default function PresentationPage() {
 
         <div className="absolute bottom-8 left-8 text-xs text-gray-400">© Creative Crew Inc. All rights reserved.</div>
 
-        <div className="print-hide absolute bottom-20 left-8 max-w-md text-xs text-gray-500">
-          {locale === "en" ? (
-            <>
-              PDF export
-              <br />
-              Use your browser print dialog and select “Save as PDF”.
-            </>
-          ) : (
-            <>
-              PDF出力について
-              <br />
-              この資料は、ブラウザの印刷機能を使ってPDFとして保存できます。
-              <br />
-              印刷ダイアログで「PDFに保存」を選択してください。
-            </>
-          )}
-        </div>
+        {isFirst && (
+          <div className="print-hide absolute bottom-20 left-8 max-w-md text-xs text-gray-500">
+            {locale === "en" ? (
+              <>
+                PDF export
+                <br />
+                Use your browser print dialog and select “Save as PDF”.
+              </>
+            ) : (
+              <>
+                PDF出力について
+                <br />
+                この資料は、ブラウザの印刷機能を使ってPDFとして保存できます。
+                <br />
+                印刷ダイアログで「PDFに保存」を選択してください。
+              </>
+            )}
+          </div>
+        )}
       </>
     )
   }

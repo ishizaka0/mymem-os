@@ -8,7 +8,7 @@ const copy: Record<
     label: "エピローグ",
     mainLines: ["AIが賢くなるほど、", "人間の創造は終わらない。"],
     product: "mymem OS",
-    tagline: "忘れてないでいてくれる、もうひとりの自分。",
+    tagline: "忘れない、もう一人の自分。",
   },
   en: {
     label: "Epilogue",

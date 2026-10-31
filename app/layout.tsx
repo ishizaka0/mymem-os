@@ -28,8 +28,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // MyMem extensions add attributes to <html> before React hydrates.
   return (
-    <html lang="ja">
+    <html lang="ja" suppressHydrationWarning>
       <body className={`font-sans antialiased ${_notoSansJP.variable} ${_inter.variable}`}>
         {children}
         <Analytics />

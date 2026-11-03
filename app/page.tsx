@@ -19,6 +19,7 @@ import Slide81 from "@/components/slides/slide-8-1"
 import Slide82 from "@/components/slides/slide-8-2"
 import { defaultLocale, getPresentationLocale, type Locale } from "@/lib/i18n"
 import { PRESENTATION_VERSION } from "@/lib/presentation-version"
+import { PresentationConnect } from "@/components/presentation-connect"
 
 type SlideComponent = (props: { locale: Locale }) => JSX.Element
 
@@ -148,7 +149,7 @@ export default function PresentationPage() {
         <div className="absolute bottom-8 left-8 text-xs text-gray-400">© Creative Crew Inc. All rights reserved.</div>
 
         {isFirst && (
-          <div className="print-hide absolute bottom-20 left-8 max-w-md text-xs text-gray-500">
+          <div className="print-hide absolute bottom-20 left-8 max-w-[calc(100%-9rem)] text-xs text-gray-500 sm:max-w-md">
             {locale === "en" ? (
               <>
                 PDF export
@@ -166,6 +167,7 @@ export default function PresentationPage() {
             )}
           </div>
         )}
+        {isFirst && !isPrint && <PresentationConnect locale={locale} />}
       </>
     )
   }

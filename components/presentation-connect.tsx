@@ -14,14 +14,20 @@ const copy = {
  * trusted-click listener. This page has no extension ID or messaging API. */
 export function PresentationConnect({ locale }: { locale: Locale }) {
   const [available, setAvailable] = useState(false), [state, setState] = useState("")
+  const [compact, setCompact] = useState(false)
   const button = useRef<HTMLButtonElement>(null), text = copy[locale]
   useEffect(() => {
     const read = () => {
-      setAvailable(document.documentElement.dataset.mymemPresentationConnectVersion === "1")
-      setState(button.current?.dataset.mymemPresentationState || "")
+      const root = document.documentElement, next = button.current?.dataset.mymemPresentationState || ""
+      setAvailable(root.dataset.mymemPresentationConnectVersion === "1")
+      // Keep the compact form when returning to the cover in this document.
+      // A failed first attempt never collapses the entry.
+      if (next === "opened" && root.dataset.mymemPresentationCompact !== "1") root.dataset.mymemPresentationCompact = "1"
+      setCompact(root.dataset.mymemPresentationCompact === "1")
+      setState(next)
     }
     const observer = new MutationObserver(read)
-    observer.observe(document.documentElement, { subtree: true, attributes: true, attributeFilter: ["data-mymem-presentation-connect-version", "data-mymem-presentation-state"] })
+    observer.observe(document.documentElement, { subtree: true, attributes: true, attributeFilter: ["data-mymem-presentation-connect-version", "data-mymem-presentation-state", "data-mymem-presentation-compact"] })
     read()
     return () => observer.disconnect()
   }, [])
@@ -29,10 +35,10 @@ export function PresentationConnect({ locale }: { locale: Locale }) {
   return <div className="print-hide absolute right-8 bottom-20 z-20 flex max-w-[calc(100%-4rem)] flex-col items-end gap-2" data-mymem-private="presentation-connect">
     {state === "unavailable" && <p role="alert" className="max-w-64 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-xs leading-relaxed text-rose-800">{text.error}</p>}
     <Button ref={button} type="button" data-mymem-presentation-connect="" aria-label={text.label} aria-busy={state === "opening"} disabled={state === "opening"} title={text.label}
-      className="h-auto min-h-12 gap-2.5 rounded-2xl border border-blue-100 bg-white/95 p-2 text-slate-800 shadow-sm hover:border-blue-300 hover:bg-blue-50 focus-visible:ring-blue-500 md:px-3">
-      <img src="/images/mymem-connect.png" alt="" width={40} height={40} className="size-10 shrink-0 object-contain" />
-      <span className="hidden text-left md:block"><span className="block text-sm font-semibold">MyMem Connect</span><span className="block text-[10px] font-normal text-slate-600">{text.detail}</span></span>
-      {state === "opening" && <Loader2 className="size-4 animate-spin motion-reduce:animate-none" aria-hidden="true" />}
+      className={`border border-blue-100 bg-white/95 text-slate-800 shadow-sm hover:border-blue-300 hover:bg-blue-50 focus-visible:ring-blue-500 ${compact ? "relative size-12 rounded-full p-2" : "h-auto min-h-12 gap-2.5 rounded-2xl p-2 md:px-3"}`}>
+      <img src="/images/mymem-connect.png" alt="" width={compact ? 32 : 40} height={compact ? 32 : 40} className={`${compact ? "size-8" : "size-10"} shrink-0 object-contain`} />
+      {!compact && <span className="hidden text-left md:block"><span className="block text-sm font-semibold">MyMem Connect</span><span className="block text-[10px] font-normal text-slate-600">{text.detail}</span></span>}
+      {state === "opening" && <Loader2 className={`size-4 animate-spin motion-reduce:animate-none ${compact ? "absolute -right-1 -top-1 rounded-full bg-white" : ""}`} aria-hidden="true" />}
     </Button>
     <span role="status" className="sr-only">{state === "opening" ? text.opening : state === "opened" ? text.opened : ""}</span>
   </div>

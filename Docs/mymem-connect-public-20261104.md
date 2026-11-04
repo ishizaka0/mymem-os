@@ -21,3 +21,12 @@ Ishizaka。MyMemOS資料は1.0.1、PRO/Docs主版は0.36.4を維持する。通�
 - source checkは既存差分52件で未成功。今回新規登録した10根拠だけレビュー後にhash追加し、元のHEADにあった全hashは保持。未確認差分を一括baseline更新せず、公開根拠全照合の成功とは扱わない。
 
 証跡：`../research-reports/presentation-connect-public-2026-11-04/`。
+
+## 最終公開確認
+
+- OSのUIと確認記録は6806dc9d4026eeea26e594960142f584e0fa9786としてorigin/mainと既存featureへ通常push。mainの自動本番ビルドdpl_25Gehw5QqnTng1bDuJXRJfdr9AYeがREADYでos.mymem.netへ割当済み。先に実ブラウザーで確認したacbe51dからのUIコード差分は0で、README/記録だけが追加された。
+- PROの通しテストと記録は3f7cb21として既存作業ブランチへ通常push。以前からの未コミット変更は含めず保持した。
+- Docs原稿42b10d0aをorigin/main、検証済みbuildを4d5823fb5bb8562449de2fbc678b2a5e4f6f27c6としてorigin/gh-pagesへ通常push。Pages built/error.message null、CNAME/.nojekyll/robots.txtの3hash維持を確認。
+- 公開URL https://docs.mymem.net のverifyは2026-11-04T12:22:22.467Z、PC113/モバイル112・両テーマ・53画像・リンク/アンカー・サバ缶6ページの開発中表記が成功。取得失敗/例外/横はみ出し/画像・文書再試行0。新しいConnect節のHTTP200と表示、新画像HTTP200と元バイトSHA一致もChromeで確認した。Pythonによる直接取得はHTTP403だったため、その試行を成功扱いにせず実ブラウザーで照合した。
+- 利用ガイド：https://docs.mymem.net/docs/guides/chatgpt-voice-sync/#presentation-connect 。拡張の通常配布・R2・PRO版番号は変更していない。MyMemOS資料1.0.1、Docs主版0.36.4を維持する。
+- 原稿は隔離worktreeで今回分だけを公開し、元のDocs作業中変更へ今回分を非破壊で反映した。元の全baseline hashは保持。source全照合の既存差分52件は未成功のまま区別する。この最終確認記録も通常pushする。

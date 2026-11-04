@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import type { Locale } from "@/lib/i18n"
+import coverNarration from "@/public/narration/cover.ja.json"
 
 const copy = {
   ja: { label: "MyMem Connectで3D AIチャットを開く", detail: "3D AIチャットで資料を説明", opening: "サイドパネルを開いています…", opened: "サイドパネルを開きました", error: "開けませんでした。拡張を再読み込みして、もう一度押してください。" },
@@ -33,6 +34,7 @@ export function PresentationConnect({ locale }: { locale: Locale }) {
   }, [])
   if (!available) return null
   return <div className="print-hide absolute right-8 bottom-20 z-20 flex max-w-[calc(100%-4rem)] flex-col items-end gap-2" data-mymem-private="presentation-connect">
+    {locale === "ja" && <script type="application/json" data-mymem-presentation-narration="" dangerouslySetInnerHTML={{ __html: JSON.stringify(coverNarration).replace(/</g, "\\u003c") }} />}
     {state === "unavailable" && <p role="alert" className="max-w-64 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-xs leading-relaxed text-rose-800">{text.error}</p>}
     <Button ref={button} type="button" data-mymem-presentation-connect="" aria-label={text.label} aria-busy={state === "opening"} disabled={state === "opening"} title={text.label}
       className={`border border-blue-100 bg-white/95 text-slate-800 shadow-sm hover:border-blue-300 hover:bg-blue-50 focus-visible:ring-blue-500 ${compact ? "relative size-12 rounded-full p-2" : "h-auto min-h-12 gap-2.5 rounded-2xl p-2 md:px-3"}`}>

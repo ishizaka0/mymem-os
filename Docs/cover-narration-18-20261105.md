@@ -7,3 +7,12 @@ Ishizaka。表紙原稿をユーザー提供の18区分へ差し替える。page
 Next本番ビルド成功。関連PRO12ファイル209件、tsc、online-setupビルド成功。専用の空Chromeで本番Webビルド、実Connect、実サイドパネル、production DOM監視・Chromeポート・音声同期セッション・Canvas描画を通して18区分すべてを確認した。古いMarkdownが残る画面と、音声より先に冒頭字幕が届く条件を再現。送信原稿は提供JSONのscriptと完全一致し、完了後の非表示・遅延字幕・再読み込み時の二重送信防止が成功、JS例外0。ChatGPT画面と音量、送信の受領確認だけは合成し、実アカウント/AI/マイクは使わない。
 
 Web本番およびDocsの公開commit・実URL確認結果は反映後に追記する。
+
+
+## 最終公開確認
+
+OS source0111d29fbfa92cd517008a916ef311e8bd9d5790、本番dpl_5g8HzCbFc4jtXNfK83gjQfapRyMWがREADY・os.mymem.netへ割当済み。公開JSON18区分と元バイト完全一致。公開ページから実Connect・DOM監視・Chromeポート・音声同期session・Canvasを通す18区分の確認が成功し、冒頭字幕先行時も実音声フレームを待って表示した。実アカウント/AI/マイクは不使用。
+
+Docs原稿afad42974e68114f28f981ad79ecec947ac33ffcをorigin/main、公開2a19289c00434c3fb8d3560d75111b604987c3d0をorigin/gh-pagesへ通常push。GitHub Pagesは2026-11-04T21:17:37Zに今回commitのbuilt/error.message null。保護3ファイルの元バイト維持。公開verify 2026-11-04T21:19:48.393Z はPC113/モバイル112、両テーマ・リンク/アンカー/画像に成功、例外・失敗取得・横はみ出し・実AI要求0。3つの更新ページ本文と2PNGの元バイトSHA-256一致も空Chromeで確認。ガイドはhttpsで開始したURLからhttpの同名パスへ遷移した結果を確認し、TLS挙動の変更は今回行わない。Pythonの直接HTTP取得は403だったため、通常ブラウザーで確認した。
+
+Docs全体のsource照合は公開作業ツリーの既存差分を含む58件で未成功。元の作業ツリーでは63差分を維持し、元HEADの1069hashを変更せず、今回レビューした保留ソースのみ整合させた。元作業ツリーの基本checkは113ページ/69画像で成功。通常配布・主版・保存形式を維持。この最終記録も通常pushする。

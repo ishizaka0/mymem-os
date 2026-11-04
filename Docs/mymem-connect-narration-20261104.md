@@ -9,3 +9,12 @@ Ishizaka。MyMemOS資料1.0.1、PRO/Docs主版0.36.4を維持。日本語表紙�
 OSのNext.js本番ビルド、関連PRO 8ファイル150テスト・TypeScript・online-setupビルドが成功。実Webビルド/空Chrome/実Connectクリック/実サイドパネルで、音声が未接続でも13区分を受け取ること、自動選択、接続だけでは送信0、「説明開始」の1回だけで提供原稿を送ること、再読込で再実行しないことを確認。送信境界はローカル受領確認に置き換え、実AI・アカウント・マイクを使わない。
 
 公開と公開URLの最終確認結果は、反映後に追記する。
+
+
+## 最終公開確認
+
+OS source e2d27a4、本番dpl_abcmQ5CDR3B1T81AcqqXoUtzB45xがREADY・os.mymem.netへ割当済み。公開JSONは元バイト/13区分と一致。公開サイトの実Connect・実サイドパネルで受信/自動選択/明示開始/再読込時の単回性が成功。
+
+Docs原稿5dba62f4をorigin/main、公開714f368cc957e094375c65ce9395f0a6ccd76cb1をorigin/gh-pagesへ通常push。Pages built/error.message null。保護3ファイルhash維持。ビルド完了後の公開verify 2026-11-04T14:56:31.365Z はPC113/モバイル112・両テーマ・55画像/リンク/アンカーに成功。例外・取得失敗・横はみ出し・画像/文書再試行・実AI要求0。今回の説明文がHTTP200に含まれ、新画像が元バイトSHA-256 2afc985a96d8a9b044ca79dff6ea19e4605d541db184be02dcd14d906cac40db と一致することも確認した。
+
+既存source差分54件は全照合の成功とせず、レビューした11根拠だけhashを登録/更新。元のDocs作業ツリーへ今回分だけ反映し、元HEAD1069hashと他のWIPを保持。基本checkは68画像で成功。MyMem OS資料1.0.1、PRO/Docs主版0.36.4・通常配布・保存形式を維持。この確認記録も通常pushする。

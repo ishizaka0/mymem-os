@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ChevronLeft, ChevronRight, Download } from "lucide-react"
+import { ChevronLeft, ChevronRight, Download, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Slide1 from "@/components/slides/slide-1"
 import Slide2 from "@/components/slides/slide-2"
@@ -43,6 +43,17 @@ const slides: SlideComponent[] = [
 export default function PresentationPage() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [locale, setLocale] = useState<Locale>(defaultLocale)
+  const [hasMymemExtension, setHasMymemExtension] = useState(false)
+
+  // A content script sets this marker only when the enabled extension is running.
+  useEffect(() => {
+    const root = document.documentElement
+    const check = () => setHasMymemExtension(root.dataset.mymemOsConnectReady === "1")
+    check()
+    const observer = new MutationObserver(check)
+    observer.observe(root, { attributes: true, attributeFilter: ["data-mymem-os-connect-ready"] })
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -83,6 +94,21 @@ export default function PresentationPage() {
 
     return (
       <>
+        {isFirst && !isPrint && hasMymemExtension && (
+          <div className="print-hide absolute top-8 left-8 z-20">
+            <Button
+              type="button"
+              variant="outline"
+              data-mymem-os-connect=""
+              title={locale === "en" ? "Open 3D chat in the MyMem side panel" : "MyMemのサイドパネルで3Dチャットを開く"}
+              aria-label={locale === "en" ? "Open MyMem Connect 3D chat" : "mymem Connectで3Dチャットを開く"}
+              className="h-10 gap-2 rounded-full border-[#2A6DF5]/30 bg-white/95 px-4 text-[#2A6DF5] shadow-sm hover:bg-blue-50"
+            >
+              <MessageCircle className="h-5 w-5" aria-hidden="true" />
+              <span className="hidden text-sm font-medium sm:inline">mymem Connect</span>
+            </Button>
+          </div>
+        )}
         <div className="absolute top-8 right-8 grid grid-cols-2 items-center justify-items-center gap-x-3 gap-y-1 z-10">
           <img
             src="/images/ccvn-logo.png"
